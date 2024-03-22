@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0" />
+    <title>Picker</title>
+    <style>
+      body {
+        background: rgba(51, 52, 47, 0.4);
+        color: #000;
+        font-family: verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 10px;
+      }
+
+      a:link,
+      a:visited {
+        color: #008;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      a:active,
+      a:hover {
+        color: #acf;
+      }
+
+      .info {
+        font-weight: bold;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: 0;
+        border-radius: 3px;
+        padding: 0.3em 0.5em;
+        background: #ccc;
+        color: #000;
+      }
+
+      button:hover {
+        background: #ddd;
+      }
+
+      button.disabled {
+        background: #ddd;
+        color: #888;
+        cursor: not-allowed;
+      }
+
+      button.disabled:hover {
+        background: #ddd;
+      }
+
+      #container {
+        position: relative;
+        margin-left: -10px;
+        margin-right: -10px;
+        padding: 10px;
+        overflow: hidden;
+      }
+
+      @media (min-width: 1024px) {
+        /* Put the found favorites beside the picking div when the window is sufficiently large */
+        #picking {
+          float: left;
+          width: 636px;
+        }
+
+        #secondary {
+          margin-left: 646px;
+        }
+      }
+
+      @media (min-width: 1300px) {
+        /* Once we get to the point where 636px is less than half of the width of the screen, make the picking div just take up half */
+        #picking {
+          width: 50%;
+        }
+
+        #secondary {
+          margin-left: 51%;
+        }
+      }
+
+      #pick {
+        background: #58f;
+        color: #fff;
+        font-size: larger;
+        font-weight: bold;
+        width: 6em;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+
+      #pick.disabled {
+        background: #acf;
+      }
+
+      #pick:hover {
+        background: #acf;
+      }
+
+      .item-list {
+        padding: 0;
+        list-style-type: none;
+        line-height: 100px;
+      }
+
+      .item-list li {
+        margin: 0;
+        display: inline-block;
+        height: 100px;
+        width: 200px;
+        line-height: 100px;
+        border: 3px solid black;
+        text-align: center;
+        position: relative;
+        vertical-align: middle;
+        overflow: scroll;
+        border-radius: 10%;
+        background: #f7f7f7;
+        color: #000;
+        margin: 5px;
+      }
+
+      .item-list li img {
+        vertical-align: middle;
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+      .item-list li span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1.2;
+      }
+
+      @media (max-width: 636px) {
+        .item-list {
+          line-height: 75px;
+        }
+
+        .item-list li {
+          line-height: 75px;
+          height: 75px;
+          width: 75px;
+        }
+      }
+
+      @media (max-width: 423px) {
+        .item-list {
+          line-height: 50px;
+        }
+
+        .item-list li {
+          line-height: 50px;
+          height: 50px;
+          width: 50px;
+        }
+      }
+
+      #evaluating li {
+        cursor: pointer;
+      }
+
+      #favorites li {
+        cursor: move;
+      }
+
+      .item-list li:hover {
+        background: #cdf;
+      }
+
+      .item-list.sorting li:hover {
+        background: #f7f7f7;
+      }
+
+      #evaluating li.selected {
+        border: 3px solid #7ac;
+      }
+
+      #evaluating,
+      #buttons {
+        text-align: center;
+        margin: auto;
+      }
+
+      #evaluating li.notice {
+        width: auto;
+        height: auto;
+        max-width: 260px;
+        margin: auto;
+        background: #f7f7f7;
+        border-radius: 10px;
+        padding: 30px 30px;
+        color: #000;
+        text-align: center;
+        line-height: 1.4;
+        cursor: auto;
+        font-size: 10pt;
+      }
+
+      #buttons {
+        margin-top: 30px;
+        position: relative;
+        z-index: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Picker</h1>
+
+    <p>You can include any content you want here.</p>
+
+    <div id="container">
+      <div id="picking">
+        <ul id="evaluating" class="item-list"></ul>
+
+        <p id="buttons">
+          <button id="pick">Pick</button> <button id="pass">Pass</button>
+          <button id="undo">Undo</button> <button id="redo">Redo</button>
+        </p>
+      </div>
+
+      <div id="secondary">
+        <h2>Found favorites</h2>
+
+        <ol id="favorites" class="item-list"></ol>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="picker.js"></script>
+    <script src="picker-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
+    <script>
+      "use strict";
+
+      var items = [
+        // Define your items here
+        {
+          id: 2,
+          name: '"Diversity is Beautiful" - Embracing the richness of differences.',
+        },
+        {
+          id: 3,
+          name: '"Kindness is Contagious" - Promoting compassion and empathy.',
+        },
+        {
+          id: 4,
+          name: '"Be the Change" - Encouraging activism and personal responsibility.',
+        },
+        {
+          id: 5,
+          name: '"Radiate Positivity" - Spreading optimism and good vibes.',
+        },
+        {
+          id: 6,
+          name: '"Embrace Your Weirdness" - Celebrating individuality and uniqueness.',
+        },
+        {
+          id: 7,
+          name: '"Love Knows No Labels" - Challenging stereotypes and prejudices.',
+        },
+        {
+          id: 8,
+          name: '"In Unity, Strength" - Promoting solidarity and collaboration.',
+        },
+        {
+          id: 9,
+          name: "\"Respect Everyone's Journey\" - Acknowledging and honoring each person's path.",
+        },
+        {
+          id: 10,
+          name: '"Believe in Love & Justice" - Combining faith in humanity with the pursuit of equality.',
+        },
+        {
+          id: 11,
+          name: '"Live Boldly, Love Fiercely" - Encouraging courage and passion in relationships and endeavors.',
+        },
+        {
+          id: 12,
+          name: "'Come As you are' - A message of acceptance and inclusivity.",
+        },
+        {
+          id: 13,
+          name: "'Love lives here' - Celebrating love and LGBTQ pride.",
+        },
+        {
+          id: 14,
+          name: "'Side with Love' - Advocating for love as a guiding principle.",
+        },
+        {
+          id: 15,
+          name: "'Weeds Are A Social Construct' - A playful take on societal norms.",
+        },
+        {
+          id: 16,
+          name: "'The universe is good' - Reflecting a positive worldview.",
+        },
+        { id: 17, name: "“Celebrating Diversity, Embracing Unity”" },
+        { id: 18, name: "“Faith in Action: Love Without Borders”" },
+        { id: 19, name: "“Inclusivity is our Faith, Compassion our Practice”" },
+        { id: 20, name: "“Building Bridges, Breaking Barriers”" },
+        { id: 21, name: "“Honoring Every Journey, Embracing Every Soul”" },
+        {
+          id: 22,
+          name: "“Justice, Compassion, and Diversity: Our Unitarian Universalist Values”",
+        },
+        { id: 23, name: "“Welcoming All Paths, Walking Together”" },
+        { id: 24, name: "“Together in Faith, United in Love”" },
+        { id: 25, name: "“Diverse Voices, Shared Values”" },
+        { id: 26, name: "Unitarian Universalism: Where Everyone Belongs”" },
+        { id: 27, name: "“Embrace Diversity, Unite in Love”" },
+        { id: 28, name: "“Faith in Action, Love as Our Guide”" },
+        { id: 29, name: "“Unity in Diversity, Harmony in Belief”" },
+        { id: 30, name: "“Love Beyond Belief, Unity Beyond Words”" },
+        { id: 31, name: "“Inclusive Faith, Universal Love”" },
+        { id: 32, name: "“Together in Spirit, United in Purpose”" },
+        { id: 33, name: "“All Souls Welcome, Every Journey Honored”" },
+        { id: 34, name: "“Compassion is Our Creed, Inclusion Our Deed”" },
+        { id: 35, name: "“Building Bridges, Not Walls in Faith”" },
+        { id: 36, name: "“One World, Many Beliefs, United Hearts”" },
+      ];
+
+      var myPicker = new picker.Picker({
+        items: items,
+      });
+
+      var pickerUI = new PickerUI(myPicker, {
+        elements: {
+          pick: "#pick",
+          pass: "#pass",
+          undo: "#undo",
+          redo: "#redo",
+          evaluating: "#evaluating",
+          favorites: "#favorites",
+        },
+      });
+
+      pickerUI.initialize();
+
+      /* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
+      var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
+        draggable: ".item",
+        animation: 100,
+        onStart: function () {
+          pickerUI.elem.favorites.addClass("sorting");
+        },
+        onEnd: function () {
+          pickerUI.elem.favorites.removeClass("sorting");
+        },
+        onUpdate: function () {
+          myPicker.setFavorites(
+            pickerUI.elem.favorites
+              .children()
+              .map(function () {
+                return pickerUI.getItem(this);
+              })
+              .get()
+          );
+          pickerUI.update(true);
+        },
+      });
+      /* End sortable favorites */
+    </script>
+  </body>
+</html>
