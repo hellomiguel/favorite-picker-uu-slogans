@@ -11,6 +11,7 @@ body {
   /* border: red solid; */
   display: block;
   font-size: 1.3rem;
+  background-color:hsl(187, 40%, 70%);
 }
 
 a:link,
@@ -87,9 +88,10 @@ button.disabled:hover {
 #pick {
   background: #58f;
   color: #fff;
-  font-size: larger;
+  font-size: 1.2rem;
   font-weight: bold;
   width: 6em;
+  height: 2.1em;
   border-radius: 5px;
   margin-right: 10px;
 }
@@ -193,7 +195,8 @@ button.disabled:hover {
 }
 
 #evaluating li.selected {
-  border: 3px solid #7ac;
+  border: 3px solid yellow;
+  background-color: #7ac;
 }
 
 #evaluating,

@@ -12,7 +12,7 @@
       id="helpToggle"
       onclick="toggleInstructions()"
       >Hide</button></h2>
-    <p id="instructions">When given more than two options you can pick as many as you like. Eventually you'll be shown only two choices. Keep picking until a favorite moves into the, "Found Favorites" section. You can  keep picking to find your 2nd Favorite, 3rd Favorite, etc.
+    <p id="instructions">When given more than two options you can pick as many as you like. Eventually you'll be shown only two choices. Keep picking until a favorite moves into the, "Found Favorites" section. Keep picking to find your 2nd Favorite, 3rd Favorite, etc.
       <br><br><i><b>NB</b>: I've made it so that it'll save your progress so you can leave and come back. This *should* work on all devices/browsers</i></p>
 
     <div id="container">
@@ -20,15 +20,18 @@
         <ul id="evaluating" class="item-list"></ul>
 
         <p id="buttons">
-          <button id="pick">Pick</button> <button id="pass">Pass</button>
-          <button id="undo">Undo</button> <button id="redo">Redo</button>
+          <button id="pick">Pick</button>
+          <br> <br>
+          <button id="pass">Pass</button>
+          <button id="undo">Undo</button>
+          <button id="redo">Redo</button>
         </p>
       </div>
 
       <div id="secondary">
         <h2>Found Favorites</h2>
-
         <ol id="favorites" class="item-list"></ol>
+        <p id="empty-favorites"><i>Keep picking until Favorites show up here</i></p>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
