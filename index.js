@@ -89,6 +89,86 @@ var items = [
   { id: 34, name: "Compassion is Our Creed, Incluusion Our Deed" },
   { id: 35, name: "Building Bridges, Not Walls in Faith" },
   { id: 36, name: "One World, Many Beliefs, UUnited Hearts" },
+  {
+    id: 37,
+    name: "Love UUnites, Diversity Delights",
+  },
+  {
+    id: 38,
+    name: "INCLUUSIVITY Thrives, Where Differences UUnite",
+  },
+  {
+    id: 39,
+    name: "Grace for All, No Exceptions",
+  },
+  {
+    id: 40,
+    name: "With Open Hearts, We Walk Together",
+  },
+  {
+    id: 41,
+    name: "Embrace the Tapestry, Celebrate the UUnique",
+  },
+  {
+    id: 42,
+    name: "Respect, Love, and Understanding: Our Guiding Principles",
+  },
+  {
+    id: 43,
+    name: "We Rise Together, Celebrating Our Collective Humanity",
+  },
+  {
+    id: 44,
+    name: "Diversity Strengthens Our Bond, UUnity Empowers Our Souls",
+  },
+  {
+    id: 45,
+    name: "Room for All, No Matter Who You Are",
+  },
+  {
+    id: 46,
+    name: "Love is the Catalyst, INCLUUSIVITY is the Key",
+  },
+  {
+    id: 47,
+    name: "Harmony in Diversity, Compassion in UUnity",
+  },
+  {
+    id: 48,
+    name: "Embrace the Tapestry of Beliefs",
+  },
+  {
+    id: 49,
+    name: "Love UUnites, Labels Divide",
+  },
+  {
+    id: 50,
+    name: "Our Faith: Inclusion, Our Path: Compassion",
+  },
+  {
+    id: 51,
+    name: "Together We Thrive, Regardless of Strife",
+  },
+  {
+    id: 52,
+    name: "Kindness Knows No Dogma",
+  },
+  {
+    id: 53,
+    name: "Celebrate Differences, Cultivate Love",
+  },
+  {
+    id: 54,
+    name: "Faithful Hearts, Open Minds",
+  },
+  {
+    id: 55,
+    name: "In the Weeds of Love",
+  },
+  {
+    id: 56,
+    name: "Unitarian Universalism: Where Hearts Converge",
+  },
 ];
 
 var myPicker = new picker.Picker({
