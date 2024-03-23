@@ -7,6 +7,12 @@ body {
   padding: 10px;
 }
 
+#instructions {
+  /* border: red solid; */
+  display: block;
+  font-size: 1.3rem;
+}
+
 a:link,
 a:visited {
   color: #008;
@@ -49,9 +55,9 @@ button.disabled:hover {
 
 #container {
   position: relative;
-  margin-left: -10px;
-  margin-right: -10px;
-  padding: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 5px;
   overflow: hidden;
 }
 
@@ -100,6 +106,7 @@ button.disabled:hover {
   padding: 0;
   list-style-type: none;
   line-height: 100px;
+  margin: 0;
 }
 
 .item-list li {
@@ -145,15 +152,15 @@ button.disabled:hover {
 
   .item-list li {
     line-height: 75px;
-    height: 100px;
-    width: 120px;
+    height: 115px;
+    width: 140px;
   }
 
   .item-list li span {
-  font-size: 0.9rem;
-  margin-top: 1%;
-  margin-bottom: 1%;
-}
+    font-size: 1.1rem;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
 
 }
 

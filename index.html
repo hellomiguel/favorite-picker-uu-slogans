@@ -8,7 +8,12 @@
   <body>
     <h1>Picker</h1>
 
-    <!-- <p>You can include any content you want here.</p> -->
+    <h2>Instructions: <button
+      id="helpToggle"
+      onclick="toggleInstructions()"
+      >Hide</button></h2>
+    <p id="instructions">When given more than two options you can pick as many as you like. Eventually you'll be shown only two choices. Keep picking until a favorite moves into the, "Found Favorites" section. You can  keep picking to find your 2nd Favorite, 3rd Favorite, etc.
+      <br><br><i><b>NB</b>: I've made it so that it'll save your progress so you can leave and come back. This *should* work on all devices/browsers</i></p>
 
     <div id="container">
       <div id="picking">
@@ -21,7 +26,7 @@
       </div>
 
       <div id="secondary">
-        <h2>Found favorites</h2>
+        <h2>Found Favorites</h2>
 
         <ol id="favorites" class="item-list"></ol>
       </div>
@@ -30,142 +35,7 @@
     <script src="picker.js"></script>
     <script src="picker-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
-    <script>
-      "use strict";
-
-      var items = [
-        // Define your items here
-        {
-          id: 1,
-          name: 'Good Theology is INCLUUSIVE',
-        },
-        {
-          id: 2,
-          name: 'Diversity is Beauutiful',
-        },
-        {
-          id: 3,
-          name: 'Kindness is Contagious',
-        },
-        {
-          id: 4,
-          name: 'Be the Change',
-        },
-        {
-          id: 5,
-          name: 'Radiate Positivity',
-        },
-        {
-          id: 6,
-          name: 'Embrace Your Weirdness',
-        },
-        {
-          id: 7,
-          name: 'Love Knows No Labels',
-        },
-        {
-          id: 8,
-          name: 'In UUnity, Strength',
-        },
-        {
-          id: 9,
-          name: "Respect Everyone's Journey",
-        },
-        {
-          id: 10,
-          name: 'Believe in Love & Justice',
-        },
-        {
-          id: 11,
-          name: 'Live Boldly, Love Fiercely',
-        },
-        {
-          id: 12,
-          name: "Come As You Are",
-        },
-        {
-          id: 13,
-          name: "Love Lives Here",
-        },
-        {
-          id: 14,
-          name: "Side with Love",
-        },
-        {
-          id: 15,
-          name: "Weeds Are A Social Construct",
-        },
-        {
-          id: 16,
-          name: "The UUniverse is Good",
-        },
-        { id: 17, name: "Celebrating Diversity, Embracing UUnity" },
-        { id: 18, name: "Faith in Action: Love Without Borders" },
-        { id: 19, name: "Incluusivity is our Faith; Compassion our Practice" },
-        { id: 20, name: "Building Bridges, Breaking Barriers" },
-        { id: 21, name: "Honoring Every Journey, Embracing Every Soul" },
-        {
-          id: 22,
-          name: "Justice, Compassion, and Diversity: Our UU Values",
-        },
-        { id: 23, name: "Welcoming All Paths, Walking Together" },
-        { id: 24, name: "Together in Faith, UUnited in Love" },
-        { id: 25, name: "Diverse Voices, Shared VALUUES" },
-        { id: 26, name: "Unitarian Universalism: Where EVERYONE Belongs" },
-        { id: 27, name: "Embrace Diversity, UUnite in Love" },
-        { id: 28, name: "Faith in Action, Love as our Guide" },
-        { id: 29, name: "UUnity in Diversity, Harmony in Belief" },
-        { id: 30, name: "Love Beyond Belief, UUnity Beyond Words" },
-        { id: 31, name: "Incluusive Faith, UUniversal Love" },
-        { id: 32, name: "Together in Spirit, UUnited in Purpose" },
-        { id: 33, name: "All Souls Welcome, Every Journey Honored" },
-        { id: 34, name: "Compassion is Our Creed, Incluusion Our Deed" },
-        { id: 35, name: "Building Bridges, Not Walls in Faith" },
-        { id: 36, name: "One World, Many Beliefs, UUnited Hearts" },
-      ];
-
-      var myPicker = new picker.Picker({
-        items: items,
-        localStorageKey: 'picker-state'
-      });
-
-      var pickerUI = new PickerUI(myPicker, {
-        elements: {
-          pick: "#pick",
-          pass: "#pass",
-          undo: "#undo",
-          redo: "#redo",
-          evaluating: "#evaluating",
-          favorites: "#favorites",
-        },
-      });
-
-      pickerUI.initialize();
-
-      /* Sortable favorites - you can safely remove this, and the Sortable.min.js script, if you don't want to be able to sort your favorite list. */
-      var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
-        draggable: ".item",
-        animation: 100,
-        onStart: function () {
-          pickerUI.elem.favorites.addClass("sorting");
-        },
-        onEnd: function () {
-          pickerUI.elem.favorites.removeClass("sorting");
-        },
-        onUpdate: function () {
-          myPicker.setFavorites(
-            pickerUI.elem.favorites
-              .children()
-              .map(function () {
-                return pickerUI.getItem(this);
-              })
-              .get()
-          );
-          pickerUI.update(true);
-        },
-      });
-      /* End sortable favorites */
-    </script>
+    <script src="index.js"></script>
     <footer>This project was forked from: <a href="https://github.com/antialiasis/favorite-picker">antialiasis / favorite-picker - github</a></footer>
   </body>
 </html>
