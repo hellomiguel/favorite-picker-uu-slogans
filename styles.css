@@ -196,7 +196,7 @@ button.disabled:hover {
 
 #evaluating li.selected {
   border: 3px solid yellow;
-  background-color: #7ac;
+  background-color: hsl(133, 67%, 63%);
 }
 
 #evaluating,
