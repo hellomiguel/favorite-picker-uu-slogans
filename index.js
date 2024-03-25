@@ -214,9 +214,18 @@ var sortable = new Sortable(pickerUI.elem.favorites.get(0), {
 /* End sortable favorites */
 
 // Show/Hide Instructions
+let firstRunToggle = 0;
 const toggleInstructions = () => {
   const instructionsText = document.getElementById("instructions");
   const helpToggle = document.getElementById("helpToggle");
+
+  // this makes sure the first click on the hide button actually hides
+  if (firstRunToggle === 0) {
+    firstRunToggle += 1;
+    instructionsText.style.display = "block";
+    helpToggle.innerHTML = "Hide";
+  }
+
   if (instructionsText.style.display === "block") {
     instructionsText.style.display = "none";
     helpToggle.innerHTML = "Show";

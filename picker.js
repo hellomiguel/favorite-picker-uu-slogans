@@ -236,7 +236,7 @@
 
     // Display "No favorites found yet. Keep picking!" until the first favorite is found.
     if (favorites.length === 0) {
-      console.log("it is empty");
+      console.log("favorites is empty");
     }
 
     for (i = 0; i < expectedItems.length; i++) {
